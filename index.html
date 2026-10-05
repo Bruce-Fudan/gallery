@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="preload">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,9 +48,7 @@
   }
 
   /* ---------- 顶部标题 ---------- */
-  header {
-    margin-bottom: 40px;
-  }
+  header { margin-bottom: 40px; }
 
   header h1 {
     margin: 0 0 10px;
@@ -65,29 +63,29 @@
     color: var(--muted);
   }
 
-  /* ---------- 瀑布流：多列布局 ---------- */
+  /* ---------- 三列容器 ---------- */
   .gallery {
-    column-count: 1;          /* 手机：单列 */
-    column-gap: var(--gap);
+    display: flex;
+    gap: var(--gap);
+    align-items: flex-start;   /* 列各自独立，不互相拉伸 */
   }
 
-  @media (min-width: 620px) {
-    .gallery { column-count: 2; }   /* 平板：两列 */
-  }
+  /* JS 就绪前先隐藏，避免卡片闪一下 */
+  .preload .gallery { visibility: hidden; }
 
-  @media (min-width: 1000px) {
-    .gallery { column-count: 3; }   /* 电脑：三列 */
+  .gallery .col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
   }
 
   /* ---------- 卡片 ---------- */
   .card {
-    /* 防止卡片被拆到两列中间 */
-    break-inside: avoid;
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-
-    display: block;           /* 多列里用 block 更稳 */
-    margin: 0 0 var(--gap);   /* 卡片下间距，与列间距一致 */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -95,11 +93,11 @@
   }
 
   .thumb {
-    background: rgba(128, 128, 128, .1);   /* 图片加载前的浅灰底 */
+    background: rgba(128, 128, 128, .1);   /* 加载前的浅灰底 */
     font-size: 0;                          /* 消除 img 下方基线空隙 */
   }
 
-  /* 关键：宽度撑满列宽，高度按原始比例自适应，不裁剪 */
+  /* 宽度撑满列宽，高度 auto —— 保留原始比例，不裁剪 */
   .thumb img {
     display: block;
     width: 100%;
@@ -107,9 +105,7 @@
   }
 
   /* ---------- 文字区域 ---------- */
-  .caption {
-    padding: 14px 16px 18px;
-  }
+  .caption { padding: 14px 16px 18px; }
 
   .title {
     margin: 0 0 5px;
@@ -159,13 +155,11 @@
       <p>共 27 张</p>
     </header>
 
-    <main class="gallery">
+    <main class="gallery" id="gallery">
 
       <!-- ======== 1 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="1.jpg" alt="图片 1" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="1.jpg" alt="图片 1" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -174,9 +168,7 @@
 
       <!-- ======== 2 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="2.jpg" alt="图片 2" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="2.jpg" alt="图片 2" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -185,9 +177,7 @@
 
       <!-- ======== 3 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="3.jpg" alt="图片 3" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="3.jpg" alt="图片 3" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -196,9 +186,7 @@
 
       <!-- ======== 4 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="4.jpg" alt="图片 4" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="4.jpg" alt="图片 4" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -207,9 +195,7 @@
 
       <!-- ======== 5 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="5.jpg" alt="图片 5" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="5.jpg" alt="图片 5" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -218,9 +204,7 @@
 
       <!-- ======== 6 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="6.jpg" alt="图片 6" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="6.jpg" alt="图片 6" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -229,9 +213,7 @@
 
       <!-- ======== 7 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="7.jpg" alt="图片 7" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="7.jpg" alt="图片 7" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -240,9 +222,7 @@
 
       <!-- ======== 8 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="8.jpg" alt="图片 8" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="8.jpg" alt="图片 8" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -251,9 +231,7 @@
 
       <!-- ======== 9 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="9.jpg" alt="图片 9" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="9.jpg" alt="图片 9" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -262,9 +240,7 @@
 
       <!-- ======== 10 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="10.jpg" alt="图片 10" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="10.jpg" alt="图片 10" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -273,9 +249,7 @@
 
       <!-- ======== 11 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="11.jpg" alt="图片 11" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="11.jpg" alt="图片 11" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -284,9 +258,7 @@
 
       <!-- ======== 12 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="12.jpg" alt="图片 12" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="12.jpg" alt="图片 12" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -295,9 +267,7 @@
 
       <!-- ======== 13 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="13.jpg" alt="图片 13" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="13.jpg" alt="图片 13" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -306,9 +276,7 @@
 
       <!-- ======== 14 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="14.jpg" alt="图片 14" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="14.jpg" alt="图片 14" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -317,9 +285,7 @@
 
       <!-- ======== 15 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="15.jpg" alt="图片 15" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="15.jpg" alt="图片 15" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -328,9 +294,7 @@
 
       <!-- ======== 16 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="16.jpg" alt="图片 16" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="16.jpg" alt="图片 16" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -339,9 +303,7 @@
 
       <!-- ======== 17 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="17.jpg" alt="图片 17" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="17.jpg" alt="图片 17" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -350,9 +312,7 @@
 
       <!-- ======== 18 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="18.jpg" alt="图片 18" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="18.jpg" alt="图片 18" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -361,9 +321,7 @@
 
       <!-- ======== 19 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="19.jpg" alt="图片 19" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="19.jpg" alt="图片 19" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -372,9 +330,7 @@
 
       <!-- ======== 20 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="20.jpg" alt="图片 20" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="20.jpg" alt="图片 20" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -383,9 +339,7 @@
 
       <!-- ======== 21 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="21.jpg" alt="图片 21" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="21.jpg" alt="图片 21" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -394,9 +348,7 @@
 
       <!-- ======== 22 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="22.jpg" alt="图片 22" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="22.jpg" alt="图片 22" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -405,9 +357,7 @@
 
       <!-- ======== 23 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="23.jpg" alt="图片 23" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="23.jpg" alt="图片 23" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -416,9 +366,7 @@
 
       <!-- ======== 24 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="24.jpg" alt="图片 24" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="24.jpg" alt="图片 24" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -427,9 +375,7 @@
 
       <!-- ======== 25 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="25.jpg" alt="图片 25" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="25.jpg" alt="图片 25" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -438,9 +384,7 @@
 
       <!-- ======== 26 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="26.jpg" alt="图片 26" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="26.jpg" alt="图片 26" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -449,9 +393,7 @@
 
       <!-- ======== 27 ======== -->
       <figure class="card">
-        <div class="thumb">
-          <img src="27.jpg" alt="图片 27" loading="lazy" decoding="async">
-        </div>
+        <div class="thumb"><img src="27.jpg" alt="图片 27" loading="lazy" decoding="async"></div>
         <figcaption class="caption">
           <h3 class="title"><!-- 标题 --></h3>
           <p class="desc"><!-- 说明 --></p>
@@ -467,7 +409,64 @@
   </div>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+  (function () {
+    var gallery = document.getElementById('gallery');
+
+    // 保存原始卡片（按 HTML 里的顺序，也就是 1,2,3,4…）
+    var cards = Array.prototype.slice.call(gallery.querySelectorAll('.card'));
+
+    function getCols() {
+      var w = window.innerWidth;
+      if (w >= 1000) return 3;
+      if (w >= 620)  return 2;
+      return 1;
+    }
+
+    function layout() {
+      var cols = getCols();
+
+      // 清空
+      gallery.innerHTML = '';
+
+      // 建立 N 个列容器
+      var colEls = [];
+      for (var c = 0; c < cols; c++) {
+        var col = document.createElement('div');
+        col.className = 'col';
+        gallery.appendChild(col);
+        colEls.push(col);
+      }
+
+      // 按阅读顺序分配：第 i 张 → 第 (i % cols) 列
+      cards.forEach(function (card, i) {
+        colEls[i % cols].appendChild(card);
+      });
+    }
+
+    // 首次排版
+    layout();
+
+    // JS 就绪，显示内容
+    document.documentElement.classList.remove('preload');
+
+    // 只在“列数变化”时重新排版，避免无谓抖动
+    var lastCols = getCols();
+    var timer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        var nowCols = getCols();
+        if (nowCols !== lastCols) {
+          lastCols = nowCols;
+          layout();
+        }
+      }, 120);
+    });
+
+    // 页脚年份
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  })();
   </script>
 </body>
 </html>
