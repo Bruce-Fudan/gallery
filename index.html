@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>图片集 · Gallery</title>
+<style>
+  :root {
+    --bg: #f6f6f7;
+    --card: #ffffff;
+    --text: #1c1c1e;
+    --muted: #8a8a8e;
+    --border: rgba(0, 0, 0, .07);
+    --radius: 16px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f0f11;
+      --card: #1a1a1d;
+      --text: #f2f2f4;
+      --muted: #8e8e93;
+      --border: rgba(255, 255, 255, .08);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 20px 88px;
+  }
+
+  /* ---------- 顶部标题 ---------- */
+  header {
+    margin-bottom: 44px;
+  }
+
+  header h1 {
+    margin: 0 0 10px;
+    font-size: clamp(24px, 4.2vw, 32px);
+    font-weight: 700;
+    letter-spacing: -.02em;
+  }
+
+  header p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  /* ---------- 网格布局 ---------- */
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr;              /* 手机：一行一张 */
+    gap: 22px;
+  }
+
+  @media (min-width: 620px) {
+    .gallery { grid-template-columns: repeat(2, 1fr); }   /* 平板：一行两张 */
+  }
+
+  @media (min-width: 1000px) {
+    .gallery { grid-template-columns: repeat(3, 1fr); }   /* 电脑：一行三张 */
+  }
+
+  /* ---------- 卡片（纯静态，无悬停动效） ---------- */
+  .card {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .thumb {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: rgba(128, 128, 128, .12);
+  }
+
+  .thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---------- 文字区域 ---------- */
+  .caption {
+    padding: 15px 17px 19px;
+    flex: 1;
+  }
+
+  .title {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    line-height: 1.4;
+  }
+
+  .desc {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* 空标签时的浅灰占位提示，填上内容后自动消失 */
+  .title:empty::before {
+    content: "标题";
+    font-weight: 400;
+    color: var(--muted);
+    opacity: .45;
+  }
+
+  .desc:empty::before {
+    content: "说明文字";
+    color: var(--muted);
+    opacity: .45;
+  }
+
+  /* ---------- 页脚 ---------- */
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <h1>图片集</h1>
+      <p>共 27 张</p>
+    </header>
+
+    <main class="gallery">
+
+      <!-- ======== 1 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="1.jpg" alt="图片 1" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 2 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="2.jpg" alt="图片 2" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 3 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="3.jpg" alt="图片 3" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 4 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="4.jpg" alt="图片 4" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 5 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="5.jpg" alt="图片 5" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 6 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="6.jpg" alt="图片 6" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 7 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="7.jpg" alt="图片 7" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 8 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="8.jpg" alt="图片 8" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 9 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="9.jpg" alt="图片 9" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 10 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="10.jpg" alt="图片 10" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 11 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="11.jpg" alt="图片 11" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 12 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="12.jpg" alt="图片 12" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 13 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="13.jpg" alt="图片 13" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 14 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="14.jpg" alt="图片 14" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 15 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="15.jpg" alt="图片 15" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 16 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="16.jpg" alt="图片 16" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 17 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="17.jpg" alt="图片 17" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 18 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="18.jpg" alt="图片 18" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 19 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="19.jpg" alt="图片 19" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 20 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="20.jpg" alt="图片 20" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 21 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="21.jpg" alt="图片 21" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 22 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="22.jpg" alt="图片 22" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 23 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="23.jpg" alt="图片 23" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 24 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="24.jpg" alt="图片 24" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 25 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="25.jpg" alt="图片 25" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 26 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="26.jpg" alt="图片 26" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+      <!-- ======== 27 ======== -->
+      <figure class="card">
+        <div class="thumb">
+          <img src="27.jpg" alt="图片 27" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="caption">
+          <h3 class="title"><!-- 标题 --></h3>
+          <p class="desc"><!-- 说明 --></p>
+        </figcaption>
+      </figure>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> 图片集
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
